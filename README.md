@@ -24,7 +24,7 @@ To use this project, follow these steps:
 1. Clone the repository.
 2. Install the required dependencies using `pip install -r requirements.txt`.
 3. Define the OpenAI API key as an environment variable named `OPENAI_API_KEY` in `.env` file.
-4. Run the `app.py` script with a path to a file containing image URLs.
+4. Run the `app.py` script with a path to a file containing image URLs as an argument. For example, `python app.py images.txt`.
 
 For more details, refer to the `app.py` and `models.py` files in this repository.
 
