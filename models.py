@@ -40,7 +40,7 @@ class Product(BaseModel):
 
 class IdentifiedProduct(BaseModel):
     """
-    Represents a list of products identified in the image.
+    Represents a list of products identified in the images.
     """
 
     products: Optional[List[Product]] = Field(
