@@ -3,7 +3,7 @@ export type SiteConfig = typeof siteConfig
 export const siteConfig = {
   name: "Promo Pix",
   description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+    "Promo Pix is a tool that helps you create ad copies direcly from product images, eliminating the need to write ad copies manually.",
   mainNav: [
     {
       title: "Home",
@@ -17,6 +17,6 @@ export const siteConfig = {
   links: {
     twitter: "https://twitter.com/lakshyaag",
     github: "https://github.com/lakshyaag/image-to-ad-copy",
-    docs: "https://ui.shadcn.com",
   },
+  apiBaseUrl: "http://127.0.0.1:5000",
 }

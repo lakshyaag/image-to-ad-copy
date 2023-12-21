@@ -2,12 +2,19 @@ from typing import List
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 import app as engine
 from models import AdCopy, Product, IdentifiedProduct
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 
 class ImageList(BaseModel):
@@ -26,7 +33,12 @@ def read_root():
     }
 
 
-@app.post("/identify", response_model=IdentifiedProduct)
+@app.post("/test/")
+def test(image_list: ImageList):
+    return image_list
+
+
+@app.post("/identify/", response_model=IdentifiedProduct)
 def identify_product(image_list: ImageList, max_tokens: int = 1024):
     try:
         identified_products = engine.read_images(image_list.urls, max_tokens=max_tokens)
@@ -37,7 +49,7 @@ def identify_product(image_list: ImageList, max_tokens: int = 1024):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/generate", response_model=ProductList)
+@app.post("/generate/", response_model=ProductList)
 def generate_copy(products: IdentifiedProduct, model: str = "gpt-3.5-turbo"):
     try:
         ad_copies = []
