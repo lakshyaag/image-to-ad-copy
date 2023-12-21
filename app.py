@@ -27,7 +27,7 @@ client_copy = instructor.patch(
 )
 
 
-def read_images(image_urls: List[str]) -> IdentifiedProduct:
+def read_images(image_urls: List[str], max_tokens: int = 1024) -> IdentifiedProduct:
     """
     Given a list of image URLs, identify the products in the images.
     """
@@ -37,7 +37,7 @@ def read_images(image_urls: List[str]) -> IdentifiedProduct:
     return client_image.chat.completions.create(
         model="gpt-4-vision-preview",
         response_model=IdentifiedProduct,
-        max_tokens=1024,
+        max_tokens=max_tokens,
         temperature=0,
         messages=[
             {
@@ -57,7 +57,7 @@ def read_images(image_urls: List[str]) -> IdentifiedProduct:
     )
 
 
-def generate_ad_copy(product: Product) -> AdCopy:
+def generate_ad_copy(product: Product, model: str = "gpt-3.5-turbo") -> AdCopy:
     """
     Given a product, generate an ad copy for the product.
     """
@@ -65,7 +65,7 @@ def generate_ad_copy(product: Product) -> AdCopy:
     logger.info(f"Generating ad copy for product: {product.name}")
 
     return client_copy.chat.completions.create(
-        model="gpt-4-1106-preview",
+        model=model,
         response_model=AdCopy,
         temperature=0.3,
         messages=[
