@@ -14,7 +14,7 @@ class Product(BaseModel):
     name: str = Field(
         description="A generic name for the product.", example="Headphones"
     )
-    key_features: Optional[list[str]] = Field(
+    key_features: Optional[List[str]] = Field(
         description="A list of key features of the product that stand out.",
         example=["Wireless", "Noise Cancellation"],
         default=None,
@@ -33,9 +33,6 @@ class Product(BaseModel):
         if self.key_features:
             prompt += f"Key Features: {', '.join(self.key_features)}\n"
         return prompt
-
-    def __repr__(self):
-        return self.generate_prompt()
 
 
 class IdentifiedProduct(BaseModel):
@@ -81,9 +78,3 @@ class AdCopy(BaseModel):
         description="The name of the product being advertised.",
         example="Headphones",
     )
-
-    def __str__(self):
-        return f"{self.name}: \n" + "-" * 100 + f"{self.headline}\n{self.ad_copy}"
-
-    def __repr__(self):
-        return str(self)

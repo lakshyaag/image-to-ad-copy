@@ -2,7 +2,7 @@ import json
 import logging
 import os
 import sys
-from typing import List
+from typing import List, Tuple
 
 import instructor
 from dotenv import find_dotenv, load_dotenv
@@ -27,7 +27,7 @@ client_copy = instructor.patch(
 )
 
 
-def read_images(image_urls: List[str]):
+def read_images(image_urls: List[str]) -> IdentifiedProduct:
     """
     Given a list of image URLs, identify the products in the images.
     """
@@ -57,7 +57,7 @@ def read_images(image_urls: List[str]):
     )
 
 
-def generate_ad_copy(product: Product):
+def generate_ad_copy(product: Product) -> AdCopy:
     """
     Given a product, generate an ad copy for the product.
     """
@@ -78,7 +78,7 @@ def generate_ad_copy(product: Product):
     )
 
 
-def run(images: list[str]):
+def run(images: List[str]) -> Tuple[List[Product], List[AdCopy]]:
     """
     Given a list of images, identify the products in the images and generate ad copy for each product.
     """
