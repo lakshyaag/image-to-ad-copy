@@ -49,16 +49,11 @@ def identify_product(image_list: ImageList, max_tokens: int = 1024):
         raise HTTPException(status_code=500, detail=str(e))
 
 
-@app.post("/generate/", response_model=ProductList)
-def generate_copy(products: IdentifiedProduct, model: str = "gpt-3.5-turbo"):
+@app.post("/generate/", response_model=AdCopy)
+def generate_copy(product: Product, model: str = "gpt-3.5-turbo"):
     try:
-        ad_copies = []
-        if not products:
-            raise HTTPException(status_code=404, detail="No products identified.")
-        for product in products.products:
-            ad_copy: AdCopy = engine.generate_ad_copy(product, model=model)
-            ad_copies.append(ad_copy)
-        return {"products": products.products, "ad_copies": ad_copies}
+        ad_copy = engine.generate_ad_copy(product, model=model)
+        return ad_copy
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
