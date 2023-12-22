@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export function SiteFooter() {
   return (
-    <footer className="border-slate-100 bg-slate-50 dark:border-slate-950 dark:bg-slate-900">
+    <footer className="bg-background sticky bottom-0 z-40 w-full border-t">
       <div className="py-4">
         <p className="text-center text-sm ">
           Made with <span className="text-red-500">❤️</span> by{" "}

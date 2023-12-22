@@ -8,12 +8,16 @@ import { AdCopy, IdentifiedProduct, Product } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
+import { Toaster } from "@/components/ui/toaster"
+import { useToast } from "@/components/ui/use-toast"
 
 import { ModelSelect } from "./model-select"
 import ProductCard from "./product-card"
 import Spinner from "./spinner"
 
 export default function Landing() {
+  const { toast } = useToast()
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   const [imageLinks, setImageLinks] = React.useState("")
   const [products, setProducts] = React.useState<IdentifiedProduct>()
@@ -23,9 +27,15 @@ export default function Landing() {
     setImageLinks(event.target.value)
   }
 
-  const onClickGenerate = async () => {
+  const onClickIdentify = async () => {
     if (!imageLinks) {
-      alert("Please enter image links")
+      // alert("Please enter image links")
+      toast({
+        variant: "destructive",
+        title: "No image links",
+        description: "Please enter at least 1 image link for the model to run.",
+        duration: 4000,
+      })
       return
     }
     setIsLoading(true)
@@ -41,16 +51,18 @@ export default function Landing() {
 
   return (
     <div className="flex flex-col items-center py-2 sm:flex sm:flex-1 sm:items-center sm:justify-center">
+      <Toaster />
       <h1 className="mb-4 text-4xl font-bold">Welcome to {siteConfig.name}</h1>
-      <p className="mb-8 text-lg text-gray-600">{siteConfig.description}</p>
+      <p className="mb-4 text-lg text-gray-600">{siteConfig.description}</p>
       <div className="m-4 grid w-full gap-2">
         <Textarea
+          className="h-48 border-slate-500 dark:border-slate-50"
           placeholder="Enter image links (separate multiple images with a newline)"
           onChange={handleInputChange}
         />
         <ModelSelect valueChange={setModel} />
-        <Button onClick={onClickGenerate} disabled={isLoading}>
-          {isLoading ? <Spinner /> : "Generate"}
+        <Button onClick={onClickIdentify} disabled={isLoading}>
+          {isLoading ? <Spinner /> : "Identify products"}
         </Button>
       </div>
 
