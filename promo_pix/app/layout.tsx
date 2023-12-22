@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     title: siteConfig.title,
     description: siteConfig.description,
+    url: siteConfig.url,
   },
 }
 

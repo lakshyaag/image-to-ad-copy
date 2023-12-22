@@ -5,6 +5,7 @@ export const siteConfig = {
   title: "PromoPix - Create Ad Copies from Product Images",
   description:
     "PromoPix is a tool that helps you create ad copies direcly from product images, eliminating the need to write ad copies manually.",
+  url: "https://promo-pix-lakshyaag.vercel.app/",
   mainNav: [],
   links: {
     twitter: "https://twitter.com/lakshyaag",
