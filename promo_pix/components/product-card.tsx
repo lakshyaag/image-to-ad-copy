@@ -47,7 +47,7 @@ const ProductCard = ({
         </CardHeader>
         <Separator />
         <CardContent className="flex flex-col">
-          <div className="my-2 flex h-48 flex-col justify-center gap-4 overflow-auto">
+          <div className="my-2 flex h-48 flex-col gap-4 overflow-auto">
             {product.key_features?.map((feature, index) => (
               <Badge
                 key={index}
