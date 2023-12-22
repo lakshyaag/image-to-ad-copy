@@ -24,6 +24,12 @@ export const metadata: Metadata = {
     shortcut: "/favicon-16x16.png",
     apple: "/apple-touch-icon.png",
   },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
 }
 
 interface RootLayoutProps {
@@ -42,7 +48,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           )}
         >
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <div className="relative flex min-h-screen flex-col">
+            <div className="relative flex min-h-screen min-w-full flex-col">
               <SiteHeader />
               <div className="flex-1">{children}</div>
               <SiteFooter />

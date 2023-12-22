@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
-import { Toaster } from "@/components/ui/toaster"
 import { useToast } from "@/components/ui/use-toast"
 
 import { ModelSelect } from "./model-select"
@@ -17,15 +16,14 @@ import ProductCard from "./product-card"
 import Spinner from "./spinner"
 
 export default function Landing() {
-  const defaultLink = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz5sR8YTAm5y6LAIbirnyolnFckqURArsD-w&usqp=CAU\nhttps://i5.walmartimages.ca/images/Enlarge/799/121/6000203799121.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF`
   const { toast } = useToast()
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [imageLinks, setImageLinks] = React.useState(defaultLink)
+  const [imageLinks, setImageLinks] = React.useState("")
   const [products, setProducts] = React.useState<IdentifiedProduct>()
   const [model, setModel] = React.useState<string>("gpt-3.5-turbo")
 
-  const handleInputChange = (event: any) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setImageLinks(event.target.value)
   }
 
@@ -53,7 +51,6 @@ export default function Landing() {
 
   return (
     <div className="flex flex-col items-center py-2 sm:flex sm:flex-1 sm:items-center sm:justify-center">
-      <Toaster />
       <h1 className="mb-4 text-4xl font-bold">Welcome to {siteConfig.name}</h1>
       <p className="mb-2 text-lg">{siteConfig.description}</p>
       <p className="text-md mb-4">
@@ -64,8 +61,7 @@ export default function Landing() {
       <div className="m-4 grid w-full gap-2">
         <Label htmlFor="image-links">Enter image links</Label>
         <Textarea
-          className="h-48 border-slate-500 dark:border-slate-50"
-          value={defaultLink}
+          className="h-36 border-slate-500 dark:border-slate-50"
           placeholder="Enter image links (separate multiple images with a newline)"
           onChange={handleInputChange}
           id="image-links"

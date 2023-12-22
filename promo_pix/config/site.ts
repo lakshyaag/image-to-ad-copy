@@ -1,14 +1,17 @@
 export type SiteConfig = typeof siteConfig
 
 export const siteConfig = {
-  name: "Promo Pix",
+  name: "PromoPix",
+  title: "PromoPix - Create Ad Copies from Product Images",
   description:
-    "Promo Pix is a tool that helps you create ad copies direcly from product images, eliminating the need to write ad copies manually.",
+    "PromoPix is a tool that helps you create ad copies direcly from product images, eliminating the need to write ad copies manually.",
   mainNav: [],
   links: {
     twitter: "https://twitter.com/lakshyaag",
     github: "https://github.com/lakshyaag/image-to-ad-copy",
   },
-  // apiBaseUrl: "http://localhost:5000",
-  apiBaseUrl: "https://image-to-ad-copy.onrender.com/",
+  apiBaseUrl:
+    process.env.NODE_ENV === "production"
+      ? process.env.API_BASE_URL
+      : "http://localhost:5000/",
 }
