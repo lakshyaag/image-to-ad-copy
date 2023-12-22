@@ -31,6 +31,10 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     url: siteConfig.url,
   },
+  twitter: {
+    card: "summary_large_image",
+    site: siteConfig.title,
+  },
 }
 
 interface RootLayoutProps {
