@@ -69,7 +69,7 @@ class AdCopy(BaseModel):
         example="Wireless Headphones",
     )
     ad_copy: str = Field(
-        description="A long-form advertisement copy for the given product. This will be used in campaigns to promote the product with a persuasive message and a call-to-action with the objective of driving sales.",
+        description="Advertisement copy for the given product. This will be used in campaigns to promote the product with a persuasive message, highlighting the needs served, and a call-to-action with the objective of driving sales.",
         example="""
         "Experience the ultimate sound quality with our wireless headphones, featuring high-definition audio, noise-cancellation, and a comfortable, ergonomic design for all-day listening."
         """,

@@ -71,7 +71,7 @@ def generate_ad_copy(product: Product, model: str = "gpt-3.5-turbo") -> AdCopy:
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert marketing assistant for all products. Your task is to generate an advertisement copy for a product using the name, description, and key features.",
+                "content": "You are an expert marketing assistant for all products. Your task is to generate an advertisement copy for a product using the name, description, and key features provided to you. Keep the copy no longer than 3 paragraphs.",
             },
             {"role": "user", "content": product.generate_prompt()},
         ],
