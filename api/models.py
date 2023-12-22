@@ -64,7 +64,7 @@ class IdentifiedProduct(BaseModel):
                     "Ergonomic",
                     "Comfortable",
                 ],
-                description="Wireless headphones with noise cancellation...",
+                description="Wireless headphones with noise cancellation.",
                 image_ids=[1, 3],
             ),
             Product(
@@ -76,7 +76,7 @@ class IdentifiedProduct(BaseModel):
                     "Lightweight",
                     "Portable",
                 ],
-                description="A camera with a 50mm lens...",
+                description="A camera with a 50mm lens.",
                 image_ids=[2],
             ),
         ],
