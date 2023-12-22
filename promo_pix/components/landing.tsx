@@ -99,7 +99,7 @@ export default function Landing() {
           <div className="flex w-full flex-col items-center justify-center">
             <h2 className="mt-4 text-2xl font-bold">Products</h2>
             <p className="mb-4 text-sm">Using text model: {model}</p>
-            <div className="xs:grid-cols-1 grid gap-6 lg:grid-cols-3">
+            <div className="xs:grid-cols-1 grid gap-8 lg:grid-cols-3">
               {products.products?.map((product: Product) => (
                 <ProductCard
                   key={product.name}

@@ -13,6 +13,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 
@@ -45,33 +52,40 @@ const ProductCard = ({
 
   return (
     <div className="flex flex-col">
-      <Card className="flex flex-col overflow-hidden rounded-lg shadow-lg lg:ml-4">
-        <CardHeader className="h-16 justify-center overflow-auto text-center lg:h-24">
+      <Card className="flex flex-col rounded-lg shadow-lg lg:ml-4">
+        <CardHeader className="justify-center text-center">
           <CardTitle className="text-xl lg:text-2xl">{product.name}</CardTitle>
+          <Separator />
         </CardHeader>
-        <Separator />
         <CardContent className="flex flex-col">
-          <ScrollArea className="w-96">
-            <div className="flex w-max space-x-4 p-4">
+          <Carousel className="w-full" opts={{ align: "center", loop: true }}>
+            <CarouselContent>
               {urls.length > 0 &&
                 urls.map((url, index) => (
-                  <div
+                  <CarouselItem
                     key={index}
-                    className="overflow-hidden rounded-md shadow-md"
+                    className="basis-2/3 overflow-hidden"
                   >
-                    <Image
-                      loader={({ src }) => src}
-                      src={url}
-                      width={200}
-                      height={200}
-                      alt={product.name}
-                      className="aspect-square object-scale-down"
-                    />
-                  </div>
+                    <div className="p-1">
+                      <Card>
+                        <CardContent className="flex aspect-square items-center justify-center p-0">
+                          <Image
+                            loader={({ src }) => src}
+                            src={url}
+                            width={200}
+                            height={200}
+                            alt={product.name}
+                            className="object-cover"
+                          />
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </CarouselItem>
                 ))}
-            </div>
-            <ScrollBar orientation="horizontal" />
-          </ScrollArea>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
           <ScrollArea>
             <div className="my-2 flex h-48 flex-col gap-4 overflow-auto">
               {product.key_features?.map((feature, index) => (
@@ -84,6 +98,7 @@ const ProductCard = ({
                 </Badge>
               ))}
             </div>
+            <ScrollBar orientation="horizontal" />
           </ScrollArea>
           <CardDescription className="mt-2">
             {product.description}
