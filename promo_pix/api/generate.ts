@@ -6,7 +6,7 @@ const { apiBaseUrl } = siteConfig
 export const generate = async (
   product: Product,
   model: string,
-  endpoint: string = "/generate/"
+  endpoint: string = "generate/"
 ) => {
   try {
     const response = await fetch(

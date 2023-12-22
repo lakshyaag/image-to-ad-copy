@@ -4,7 +4,7 @@ const { apiBaseUrl } = siteConfig
 
 export const identify = async (
   imageLinks: string,
-  endpoint: string = "/identify/"
+  endpoint: string = "identify/"
 ) => {
   try {
     const response = await fetch(`${apiBaseUrl}${endpoint}`, {

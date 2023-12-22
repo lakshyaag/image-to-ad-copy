@@ -41,8 +41,8 @@ const ProductCard = ({
 
   return (
     <div className="flex flex-col">
-      <Card className="ml-4 flex flex-col overflow-hidden rounded-lg shadow-lg">
-        <CardHeader className="h-12 justify-center overflow-auto text-center lg:h-24">
+      <Card className="flex flex-col overflow-hidden rounded-lg shadow-lg lg:ml-4">
+        <CardHeader className="h-16 justify-center overflow-auto text-center lg:h-24">
           <CardTitle className="text-xl lg:text-2xl">{product.name}</CardTitle>
         </CardHeader>
         <Separator />

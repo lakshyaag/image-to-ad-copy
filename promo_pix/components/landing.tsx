@@ -6,6 +6,7 @@ import { identify } from "@/api/identify"
 import { siteConfig } from "@/config/site"
 import { AdCopy, IdentifiedProduct, Product } from "@/lib/types"
 import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Textarea } from "@/components/ui/textarea"
 import { Toaster } from "@/components/ui/toaster"
@@ -16,10 +17,11 @@ import ProductCard from "./product-card"
 import Spinner from "./spinner"
 
 export default function Landing() {
+  const defaultLink = `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz5sR8YTAm5y6LAIbirnyolnFckqURArsD-w&usqp=CAU\nhttps://i5.walmartimages.ca/images/Enlarge/799/121/6000203799121.jpg?odnHeight=612&odnWidth=612&odnBg=FFFFFF`
   const { toast } = useToast()
 
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
-  const [imageLinks, setImageLinks] = React.useState("")
+  const [imageLinks, setImageLinks] = React.useState(defaultLink)
   const [products, setProducts] = React.useState<IdentifiedProduct>()
   const [model, setModel] = React.useState<string>("gpt-3.5-turbo")
 
@@ -55,12 +57,23 @@ export default function Landing() {
       <h1 className="mb-4 text-4xl font-bold">Welcome to {siteConfig.name}</h1>
       <p className="mb-4 text-lg text-gray-600">{siteConfig.description}</p>
       <div className="m-4 grid w-full gap-2">
+        <Label htmlFor="image-links">Enter image links</Label>
         <Textarea
           className="h-48 border-slate-500 dark:border-slate-50"
+          value={defaultLink}
           placeholder="Enter image links (separate multiple images with a newline)"
           onChange={handleInputChange}
+          id="image-links"
         />
-        <ModelSelect valueChange={setModel} />
+
+        {!products && (
+          <>
+            <Label htmlFor="model">
+              Choose the text model (default is GPT-3.5)
+            </Label>
+            <ModelSelect valueChange={setModel} />
+          </>
+        )}
         <Button onClick={onClickIdentify} disabled={isLoading}>
           {isLoading ? <Spinner /> : "Identify products"}
         </Button>

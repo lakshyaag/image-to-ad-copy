@@ -9,5 +9,6 @@ export const siteConfig = {
     twitter: "https://twitter.com/lakshyaag",
     github: "https://github.com/lakshyaag/image-to-ad-copy",
   },
-  apiBaseUrl: "http://localhost:5000",
+  // apiBaseUrl: "http://localhost:5000",
+  apiBaseUrl: "https://image-to-ad-copy.onrender.com/",
 }
