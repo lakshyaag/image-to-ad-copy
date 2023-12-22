@@ -14,35 +14,46 @@ import {
 } from "@/components/ui/card"
 
 import AdCopyComponent from "./ad-copy-section"
+import Spinner from "./spinner"
+import { Separator } from "./ui/separator"
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({
+  product,
+  model_name,
+}: {
+  product: Product
+  model_name: string
+}) => {
+  const [adCopy, setAdCopy] = React.useState<AdCopy>()
+  const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
   const generateCopy = async () => {
+    setIsLoading(true)
     try {
-      const res = await generate(product)
+      const res = await generate(product, model_name)
       setAdCopy(res)
     } catch (err) {
       console.log(err)
+    } finally {
+      setIsLoading(false)
     }
   }
-  const [adCopy, setAdCopy] = React.useState<AdCopy>()
-
-  // const adCopy: AdCopy = {
-  //   headline: "Elevate Your Game with High-Top Basketball Sneakers",
-  //   ad_copy:
-  //     "Introducing our latest innovation in basketball footwear - the High-Top Basketball Sneakers. Designed to enhance your performance on the court, these sneakers feature a high-top design that provides excellent ankle support and stability. With their iconic branding, you'll stand out from the crowd and make a statement. The black and white color scheme adds a touch of style to your game. Don't miss out on the opportunity to take your basketball skills to the next level. Get your pair of High-Top Basketball Sneakers today!",
-  //   name: "High-Top Basketball Sneakers",
-  // }
 
   return (
     <div className="flex flex-col">
       <Card className="ml-4 flex flex-col overflow-hidden rounded-lg shadow-lg">
-        <CardHeader className="h-24 overflow-auto">
-          <CardTitle>{product.name}</CardTitle>
+        <CardHeader className="h-12 justify-center overflow-auto text-center lg:h-24">
+          <CardTitle className="text-xl lg:text-2xl">{product.name}</CardTitle>
         </CardHeader>
+        <Separator />
         <CardContent className="flex flex-col">
-          <div className="my-2 flex h-48 flex-col flex-wrap gap-4 overflow-auto">
+          <div className="my-2 flex h-48 flex-col justify-center gap-4 overflow-auto">
             {product.key_features?.map((feature, index) => (
-              <Badge key={index} variant="secondary" className="mx-2 px-4 py-2">
+              <Badge
+                key={index}
+                variant="secondary"
+                className="mx-2 bg-slate-200 px-4 py-2 dark:bg-slate-800"
+              >
                 {feature}
               </Badge>
             ))}
@@ -52,8 +63,12 @@ const ProductCard = ({ product }: { product: Product }) => {
           </CardDescription>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <Button variant="default" onClick={() => generateCopy()}>
-            Generate copy!
+          <Button
+            variant="default"
+            onClick={() => generateCopy()}
+            disabled={isLoading}
+          >
+            {isLoading ? <Spinner /> : "Generate copy"}
           </Button>
         </CardFooter>
         {adCopy && <AdCopyComponent key={adCopy.name} {...adCopy} />}
