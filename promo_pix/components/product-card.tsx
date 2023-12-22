@@ -68,14 +68,14 @@ const ProductCard = ({
                   >
                     <div className="p-1">
                       <Card>
-                        <CardContent className="flex aspect-square items-center justify-center p-0">
+                        <CardContent className="flex items-center justify-center p-0">
                           <Image
                             loader={({ src }) => src}
                             src={url}
                             width={200}
                             height={200}
                             alt={product.name}
-                            className="object-cover"
+                            className="aspect-square object-cover"
                           />
                         </CardContent>
                       </Card>
