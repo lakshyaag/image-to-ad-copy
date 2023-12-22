@@ -22,6 +22,7 @@ export default function Landing() {
   const [imageLinks, setImageLinks] = React.useState("")
   const [products, setProducts] = React.useState<IdentifiedProduct>()
   const [model, setModel] = React.useState<string>("gpt-3.5-turbo")
+  const [urls, setUrls] = React.useState<string[]>([])
 
   const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setImageLinks(event.target.value)
@@ -41,9 +42,21 @@ export default function Landing() {
     setIsLoading(true)
     try {
       const res = await identify(imageLinks)
-      setProducts(res)
+      if (res) {
+        const { data, urls } = res
+        setProducts(data)
+        setUrls(urls)
+      } else {
+        throw new Error("No response from identify function")
+      }
     } catch (error) {
       console.error(error)
+      toast({
+        variant: "destructive",
+        title: "Error identifying products",
+        description: "An error occurred while trying to identify products.",
+        duration: 4000,
+      })
     } finally {
       setIsLoading(false)
     }
@@ -91,6 +104,7 @@ export default function Landing() {
                 <ProductCard
                   key={product.name}
                   product={product}
+                  urls={product.image_ids.map((id) => urls[id])}
                   model_name={model}
                 />
               ))}

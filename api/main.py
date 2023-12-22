@@ -42,6 +42,7 @@ def test(image_list: ImageList):
 def identify_product(image_list: ImageList, max_tokens: int = 1024):
     try:
         identified_products = engine.read_images(image_list.urls, max_tokens=max_tokens)
+        print(identified_products)
         if identified_products.error:
             raise HTTPException(status_code=404, detail=identified_products.message)
         return identified_products

@@ -12,11 +12,18 @@ class Product(BaseModel):
     """
 
     name: str = Field(
-        description="A generic name for the product.", example="Headphones"
+        description="A generic name for the product.",
+        example="Headphones",
     )
     key_features: Optional[List[str]] = Field(
-        description="A list of key features of the product that stand out.",
-        example=["Wireless", "Noise Cancellation"],
+        description="A list of 5 to 8 key features of the product that stand out and are appealing to the customer.",
+        example=[
+            "Wireless",
+            "Noise Cancellation",
+            "High-Definition Audio",
+            "Ergonomic",
+            "Comfortable",
+        ],
         default=None,
     )
 
@@ -24,6 +31,11 @@ class Product(BaseModel):
         description="A description of the product.",
         example="Wireless headphones with noise cancellation.",
         default=None,
+    )
+
+    image_ids: List[int] = Field(
+        description="The IDs of the image URL used to identify the product.",
+        example=[1, 3],
     )
 
     def generate_prompt(self):
@@ -45,9 +57,28 @@ class IdentifiedProduct(BaseModel):
         example=[
             Product(
                 name="Headphones",
-                description="Wireless headphones with noise cancellation.",
-                key_features=["Wireless", "Noise Cancellation"],
-            )
+                key_features=[
+                    "Wireless",
+                    "Noise Cancellation",
+                    "High-Definition Audio",
+                    "Ergonomic",
+                    "Comfortable",
+                ],
+                description="Wireless headphones with noise cancellation...",
+                image_ids=[1, 3],
+            ),
+            Product(
+                name="Camera",
+                key_features=[
+                    "50mm Lens",
+                    "High-Definition",
+                    "Ergonomic",
+                    "Lightweight",
+                    "Portable",
+                ],
+                description="A camera with a 50mm lens...",
+                image_ids=[2],
+            ),
         ],
         default=None,
     )

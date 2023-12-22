@@ -27,7 +27,7 @@ client_copy = instructor.patch(
 )
 
 
-def read_images(image_urls: List[str], max_tokens: int = 1024) -> IdentifiedProduct:
+def read_images(image_urls: List[str], max_tokens: int = 2048) -> IdentifiedProduct:
     """
     Given a list of image URLs, identify the products in the images.
     """
@@ -48,8 +48,12 @@ def read_images(image_urls: List[str], max_tokens: int = 1024) -> IdentifiedProd
                         "text": "Identify products using the given images and generate key features for each product.",
                     },
                     *[
-                        {"type": "image_url", "image_url": {"url": url}}
-                        for url in image_urls
+                        item
+                        for i, url in enumerate(image_urls)
+                        for item in [
+                            {"type": "text", "text": f"ID: {i}"},
+                            {"type": "image_url", "image_url": {"url": url}},
+                        ]
                     ],
                 ],
             }
@@ -67,11 +71,14 @@ def generate_ad_copy(product: Product, model: str = "gpt-3.5-turbo") -> AdCopy:
     return client_copy.chat.completions.create(
         model=model,
         response_model=AdCopy,
-        temperature=0.3,
+        temperature=0.4,
         messages=[
             {
                 "role": "system",
-                "content": "You are an expert marketing assistant for all products. Your task is to generate an advertisement copy for a product using the name, description, and key features provided to you. Keep the copy no longer than 3 paragraphs.",
+                "content": """You are an expert marketing and advertising assistant.
+                Your task is to generate an advertisement copy for a product using the name, description, and key features provided to you.
+                This will be used in campaigns to promote the product with a persuasive message, highlighting the needs served, and a call-to-action with the objective of driving sales.
+                Keep the copy no longer than 3 paragraphs.""",
             },
             {"role": "user", "content": product.generate_prompt()},
         ],

@@ -7,17 +7,18 @@ export const identify = async (
   endpoint: string = "identify/"
 ) => {
   try {
+    const urls = imageLinks.split("\n")
     const response = await fetch(`${apiBaseUrl}${endpoint}`, {
       method: "POST",
       headers: {
         accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ urls: imageLinks.split("\n") }),
+      body: JSON.stringify({ urls: urls }),
     })
     const data = await response.json()
     console.log(data)
-    return data
+    return { data, urls }
   } catch (error) {
     console.error("Error:", error)
   }

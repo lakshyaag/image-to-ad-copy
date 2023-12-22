@@ -2,6 +2,7 @@ export interface Product {
   name: string
   key_features?: string[]
   description?: string
+  image_ids: number[]
 }
 
 export interface IdentifiedProduct {
